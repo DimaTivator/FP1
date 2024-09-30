@@ -24,15 +24,16 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Checkout tree
+        uses: actions/checkout@v4
+
       - name: Set-up OCaml
         uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
       # - run: opam install . --deps-only --with-test
-      - run: opam install base stdio -y
-      - run: opam install ounit.2.2.7 -y
-      - run: opam install dune -y
+      - run: opam install base stdio ounit.2.2.7 dune -y
 
       - run: opam exec -- dune build
       - run: dune build
